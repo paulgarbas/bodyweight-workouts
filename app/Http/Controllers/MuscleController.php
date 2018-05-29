@@ -84,7 +84,8 @@ class MuscleController extends Controller
         //
     }
 
-    public function showParticularExercises(Muscle $muscle) {
+    public function showExercisesByMuscleGroup(Muscle $muscle) 
+    {
         return view('exercises.index', compact('muscle'));
     }
 }

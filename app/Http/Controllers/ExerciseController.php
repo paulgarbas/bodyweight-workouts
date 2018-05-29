@@ -13,10 +13,10 @@ class ExerciseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Muscle $muscle)
+    public function index()
     {
-        // $exercises = Exercise::all();
-        return view('exercises.index', compact('muscle'));
+        $exercises = Exercise::all();
+        return view('workouts.create', compact('exercises'));
     }
 
     /**

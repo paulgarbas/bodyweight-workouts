@@ -21,8 +21,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'MuscleController@index')->name('muscles');
 
-Route::get('/{muscle}/exercises', 'MuscleController@showParticularExercises')->name('muscle.exercises');
+Route::get('/{muscle}/exercises', 'MuscleController@showExercisesByMuscleGroup')->name('muscle.exercises');
 
-Route::view('/createWorkout', 'workouts.create')->name('create.workout'); 
+Route::get('/createWorkout', 'ExerciseController@index')->name('user.create.workout'); 
 
+Route::post('/savedWorkouts', 'WorkoutController@store')->name('add.workout');
+
+Route::get('/savedWorkouts', 'WorkoutController@showWorkoutsForUser')->name('user.all.workouts');
+
+Route::get('/savedWorkouts/{workout}', 'WorkoutController@show')->name('user.single.workout');
 
