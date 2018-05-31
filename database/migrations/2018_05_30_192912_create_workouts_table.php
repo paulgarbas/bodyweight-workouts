@@ -16,7 +16,7 @@ class CreateWorkoutsTable extends Migration
         Schema::create('workouts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned()->index();
             $table->integer('sets_number');
             $table->integer('pause_between_sets');
             $table->integer('pause_between_exercises');            

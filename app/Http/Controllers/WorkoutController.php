@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Workout;
 use App\WorkoutExercise;
 use Illuminate\Http\Request;
+use App\Http\Requests\WorkoutRequest;
 use Illuminate\Support\Facades\Auth;
 
 class WorkoutController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -40,7 +41,7 @@ class WorkoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WorkoutRequest $request)
     {   
         // Insert workout into database
         $workout = Workout::create([
@@ -62,7 +63,7 @@ class WorkoutController extends Controller
             $workoutExercise->save();            
         }  
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Workout created successfully');
     }
 
     /**
@@ -107,12 +108,18 @@ class WorkoutController extends Controller
      */
     public function destroy(Workout $workout)
     {
-        //
+        $workout->delete();
+        return redirect()->back()->with('message', 'Workout deleted successfully');
     }
 
     public function showWorkoutsForUser() 
     {
-        $workouts = Workout::where('user_id', Auth::user()->id)->get();
+        $workouts = Workout::where('user_id', Auth::user()->id)->latest()->get();
         return view('workouts.index', compact('workouts'));
+    }
+
+    public function workoutsAjax() {
+        $workouts = Workout::where('user_id', Auth::user()->id)->latest()->get();
+        return response()->json(['workouts' => $workouts]); 
     }
 }

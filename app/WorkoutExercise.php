@@ -8,8 +8,8 @@ class WorkoutExercise extends Model
 {
     protected $fillable = ['workout_id', 'exercise_title', 'reps_number'];
 
-    public function exercise()
+    public function workout()
     {
-        return $this->belongsTo(Exercise::class);
+        return $this->belongsTo(Workout::class, 'workout_id');
     }
 }

@@ -15,10 +15,11 @@ class CreateWorkoutExercisesTable extends Migration
     {
         Schema::create('workout_exercises', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('workout_id');
+            $table->integer('workout_id')->unsigned()->index();
             $table->text('exercise_title');
             $table->integer('reps_number');            
             $table->timestamps();
+            $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('cascade'); 
         });
     }
 

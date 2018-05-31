@@ -31,3 +31,7 @@ Route::get('/savedWorkouts', 'WorkoutController@showWorkoutsForUser')->name('use
 
 Route::get('/savedWorkouts/{workout}', 'WorkoutController@show')->name('user.single.workout');
 
+Route::delete('/savedWorkouts/{workout}', 'WorkoutController@destroy')->name('user.workout.delete'); 
+
+Route::get('/workoutsAjax', 'WorkoutController@workoutsAjax');
+
